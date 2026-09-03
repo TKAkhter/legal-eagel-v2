@@ -1,0 +1,56 @@
+/*
+ * We intentionally skip Tailwind's preflight layer (base resets) because
+ * MUI's CssBaseline already normalizes the document, and running both
+ * fights over margins/typography defaults. Tailwind here is used for
+ * layout utilities (flex/grid/spacing) alongside MUI components, not for
+ * styling MUI itself.
+ */
+@import 'tailwindcss/theme' layer(theme);
+@import 'tailwindcss/utilities' layer(utilities);
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* Consistent, restrained motion used across the app (drawers, modals,
+   sidebar collapse/expand, route transitions). Import this instead of
+   hand-rolling durations/easings per component. */
+:root {
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Print stylesheet for detail pages. Any page wanting print support
+ * wraps itself in `.print-page` and marks chrome (buttons, sidebar,
+ * topbar) that shouldn't appear on paper with `.no-print`.
+ */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-page {
+    padding: 0 !important;
+  }
+  body {
+    background: #fff;
+  }
+}

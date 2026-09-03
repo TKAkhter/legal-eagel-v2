@@ -1,0 +1,106 @@
+{
+  "app": {
+    "name": "لوحة التحكم"
+  },
+  "nav": {
+    "dashboard": "لوحة القيادة",
+    "leads": "العملاء المحتملون",
+    "clients": "العملاء",
+    "matters": "القضايا",
+    "billings": "الفواتير",
+    "reportings": "التقارير",
+    "users": "المستخدمون",
+    "groups": "المجموعات",
+    "permissions": "الصلاحيات",
+    "auditLog": "سجل التدقيق",
+    "help": "مركز المساعدة",
+    "mail": "البريد",
+    "files": "الملفات",
+    "settings": "الإعدادات"
+  },
+  "common": {
+    "search": "بحث",
+    "filters": "عوامل التصفية",
+    "clear": "مسح",
+    "apply": "تطبيق",
+    "export": "تصدير",
+    "sendByMail": "إرسال بالبريد",
+    "refresh": "تحديث",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "rename": "إعادة تسمية",
+    "upload": "رفع",
+    "loading": "جارٍ التحميل…",
+    "noResults": "لا توجد نتائج",
+    "somethingWentWrong": "حدث خطأ ما",
+    "retry": "إعادة المحاولة",
+    "rowsPerPage": "صفوف لكل صفحة",
+    "selected": "تم تحديد {{count}}",
+    "duplicate": "تكرار",
+    "updateStatus": "تحديث الحالة",
+    "setFieldForSelected": "تعيين {{field}} لِـ {{count}} عنصر محدد",
+    "viewDetails": "عرض التفاصيل",
+    "status": "الحالة",
+    "applying": "جارٍ التطبيق…"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "register": "إنشاء حساب",
+    "loginWithMicrosoft": "المتابعة باستخدام Microsoft"
+  },
+  "commandPalette": {
+    "placeholder": "انتقل إلى صفحة أو عميل محتمل أو عميل أو قضية…"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تمييز الكل كمقروء",
+    "allCaughtUp": "لا توجد إشعارات جديدة.",
+    "minutesAgo": "منذ {{count}} د",
+    "hoursAgo": "منذ {{count}} س",
+    "daysAgo": "منذ {{count}} يوم"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "tabs": {
+      "profile": "الملف الشخصي",
+      "appearance": "المظهر",
+      "security": "الأمان",
+      "notifications": "الإشعارات"
+    },
+    "profile": {
+      "changePhoto": "تغيير الصورة",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "saveChanges": "حفظ التغييرات"
+    },
+    "appearance": {
+      "darkMode": "الوضع الداكن",
+      "accentColor": "لون التمييز",
+      "navigationLayout": "تخطيط التنقل",
+      "sidebar": "الشريط الجانبي",
+      "horizontal": "أفقي",
+      "layoutHint": "التنقل الأفقي يُطبَّق على سطح المكتب فقط؛ الشاشات الأصغر تستخدم دائمًا قائمة الشريط الجانبي.",
+      "installApp": "تثبيت التطبيق",
+      "installOnDevice": "تثبيت على هذا الجهاز"
+    },
+    "security": {
+      "currentPassword": "كلمة المرور الحالية",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+      "updatePassword": "تحديث كلمة المرور"
+    },
+    "notifications": {
+      "matterStatusChanges": "إرسال بريد عند تغيّر حالة القضية",
+      "overdueInvoices": "إرسال بريد بشأن الفواتير المتأخرة",
+      "weeklyDigest": "ملخص أسبوعي"
+    },
+    "versionInfo": "الإصدار {{version}} · تاريخ البناء {{date}}"
+  },
+  "errors": {
+    "notFound": "تعذر العثور على ما تبحث عنه.",
+    "forbidden": "ليس لديك صلاحية الوصول إلى هذه الصفحة."
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "app": {
+    "name": "Admin Boilerplate"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "leads": "Leads",
+    "clients": "Clients",
+    "matters": "Matters",
+    "billings": "Billings",
+    "reportings": "Reportings",
+    "users": "Users",
+    "groups": "Groups",
+    "permissions": "Permissions",
+    "auditLog": "Audit Log",
+    "help": "Help Center",
+    "mail": "Mail",
+    "files": "Files",
+    "settings": "Settings"
+  },
+  "common": {
+    "search": "Search",
+    "filters": "Filters",
+    "clear": "Clear",
+    "apply": "Apply",
+    "export": "Export",
+    "sendByMail": "Send by mail",
+    "refresh": "Refresh",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "rename": "Rename",
+    "upload": "Upload",
+    "loading": "Loading…",
+    "noResults": "No results found",
+    "somethingWentWrong": "Something went wrong",
+    "retry": "Retry",
+    "rowsPerPage": "Rows per page",
+    "selected": "{{count}} selected",
+    "duplicate": "Duplicate",
+    "updateStatus": "Update status",
+    "setFieldForSelected": "Set {{field}} for {{count}} selected",
+    "viewDetails": "View details",
+    "status": "Status",
+    "applying": "Applying…"
+  },
+  "auth": {
+    "login": "Log in",
+    "email": "Email",
+    "password": "Password",
+    "register": "Create account",
+    "loginWithMicrosoft": "Continue with Microsoft"
+  },
+  "commandPalette": {
+    "placeholder": "Jump to a page, lead, client, or matter…"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all read",
+    "allCaughtUp": "You're all caught up.",
+    "minutesAgo": "{{count}}m ago",
+    "hoursAgo": "{{count}}h ago",
+    "daysAgo": "{{count}}d ago"
+  },
+  "settings": {
+    "title": "Settings",
+    "tabs": {
+      "profile": "Profile",
+      "appearance": "Appearance",
+      "security": "Security",
+      "notifications": "Notifications"
+    },
+    "profile": {
+      "changePhoto": "Change photo",
+      "fullName": "Full name",
+      "email": "Email",
+      "saveChanges": "Save changes"
+    },
+    "appearance": {
+      "darkMode": "Dark mode",
+      "accentColor": "Accent color",
+      "navigationLayout": "Navigation layout",
+      "sidebar": "Sidebar",
+      "horizontal": "Horizontal",
+      "layoutHint": "Horizontal navigation applies on desktop; smaller screens always use the sidebar drawer.",
+      "installApp": "Install app",
+      "installOnDevice": "Install on this device"
+    },
+    "security": {
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmNewPassword": "Confirm new password",
+      "updatePassword": "Update password"
+    },
+    "notifications": {
+      "matterStatusChanges": "Email me when a matter status changes",
+      "overdueInvoices": "Email me about overdue invoices",
+      "weeklyDigest": "Weekly digest summary"
+    },
+    "versionInfo": "Version {{version}} · built {{date}}"
+  },
+  "errors": {
+    "notFound": "We couldn't find what you're looking for.",
+    "forbidden": "You don't have access to this page."
+  }
+}
