@@ -1,5 +1,6 @@
 import { List, ListItemButton, ListItemIcon, ListItemText, Badge, Paper, Button } from '@mui/material'
 import { Inbox, Send, FileText, Trash2, Pencil } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { MailFolder } from '../types/mail'
 
 const folderIcons: Record<string, React.ComponentType<{ size?: number }>> = {
@@ -17,10 +18,11 @@ interface MailFolderListProps {
 }
 
 export function MailFolderList({ folders, selectedFolderId, onSelectFolder, onCompose }: MailFolderListProps) {
+  const { t } = useTranslation()
   return (
     <Paper variant="outlined" sx={{ width: 220, flexShrink: 0, borderRadius: 3, p: 1.5 }}>
       <Button variant="contained" fullWidth startIcon={<Pencil size={16} />} onClick={onCompose} sx={{ mb: 1.5 }}>
-        Compose
+        {t('mail.compose')}
       </Button>
       <List disablePadding>
         {folders.map((folder) => {

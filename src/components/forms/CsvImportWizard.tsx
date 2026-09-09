@@ -4,6 +4,7 @@ import {
   Table, TableHead, TableRow, TableCell, TableBody, MenuItem, Select, Typography, Box, Alert,
 } from '@mui/material'
 import Papa from 'papaparse'
+import { useTranslation } from 'react-i18next'
 import { Dropzone } from './Dropzone'
 
 export interface CsvImportField {
@@ -32,6 +33,7 @@ export function CsvImportWizard<T extends Record<string, unknown>>({
   fields,
   onImport,
 }: CsvImportWizardProps<T>) {
+  const { t } = useTranslation()
   const [step, setStep] = useState(0)
   const [csvHeaders, setCsvHeaders] = useState<string[]>([])
   const [csvRows, setCsvRows] = useState<Record<string, string>[]>([])
@@ -93,7 +95,7 @@ export function CsvImportWizard<T extends Record<string, unknown>>({
       await onImport(mapped)
       handleClose()
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Import failed')
+      setError(e instanceof Error ? e.message : t('csvImport.importFailed'))
     } finally {
       setIsImporting(false)
     }
@@ -101,17 +103,17 @@ export function CsvImportWizard<T extends Record<string, unknown>>({
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Import from CSV</DialogTitle>
+      <DialogTitle>{t('csvImport.title')}</DialogTitle>
       <DialogContent>
         <Stepper activeStep={step} sx={{ mb: 3 }}>
           <Step>
-            <StepLabel>Upload</StepLabel>
+            <StepLabel>{t('csvImport.steps.upload')}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Map columns</StepLabel>
+            <StepLabel>{t('csvImport.steps.mapColumns')}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Confirm</StepLabel>
+            <StepLabel>{t('csvImport.steps.confirm')}</StepLabel>
           </Step>
         </Stepper>
 
@@ -121,18 +123,20 @@ export function CsvImportWizard<T extends Record<string, unknown>>({
           </Alert>
         )}
 
-        {step === 0 && <Dropzone onFilesSelected={handleFile} multiple={false} accept=".csv" hint="CSV files only" />}
+        {step === 0 && (
+          <Dropzone onFilesSelected={handleFile} multiple={false} accept=".csv" hint={t('csvImport.csvFilesOnly')} />
+        )}
 
         {step === 1 && (
           <Box>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Match each field to a column from your file ({csvRows.length} rows found).
+              {t('csvImport.matchColumns', { count: csvRows.length })}
             </Typography>
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Field</TableCell>
-                  <TableCell>CSV column</TableCell>
+                  <TableCell>{t('csvImport.field')}</TableCell>
+                  <TableCell>{t('csvImport.csvColumn')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -150,7 +154,7 @@ export function CsvImportWizard<T extends Record<string, unknown>>({
                         onChange={(e) => setMapping((m) => ({ ...m, [f.key]: e.target.value }))}
                       >
                         <MenuItem value="">
-                          <em>Don't import</em>
+                          <em>{t('csvImport.dontImport')}</em>
                         </MenuItem>
                         {csvHeaders.map((h) => (
                           <MenuItem key={h} value={h}>
@@ -166,23 +170,19 @@ export function CsvImportWizard<T extends Record<string, unknown>>({
           </Box>
         )}
 
-        {step === 2 && (
-          <Typography>
-            Ready to import <strong>{csvRows.length}</strong> rows.
-          </Typography>
-        )}
+        {step === 2 && <Typography>{t('csvImport.readyToImport', { count: csvRows.length })}</Typography>}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        {step > 0 && <Button onClick={() => setStep((s) => s - 1)}>Back</Button>}
+        <Button onClick={handleClose}>{t('common.cancel')}</Button>
+        {step > 0 && <Button onClick={() => setStep((s) => s - 1)}>{t('common.back')}</Button>}
         {step === 1 && (
           <Button variant="contained" disabled={missingRequired.length > 0} onClick={() => setStep(2)}>
-            Next
+            {t('common.next')}
           </Button>
         )}
         {step === 2 && (
           <Button variant="contained" onClick={handleConfirm} disabled={isImporting}>
-            {isImporting ? 'Importing…' : 'Import'}
+            {isImporting ? t('csvImport.importing') : t('csvImport.import')}
           </Button>
         )}
       </DialogActions>

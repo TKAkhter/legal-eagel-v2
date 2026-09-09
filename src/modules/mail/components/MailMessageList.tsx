@@ -1,6 +1,7 @@
 import { List, ListItemButton, ListItemText, Typography, Box, Skeleton, InputBase } from '@mui/material'
 import { Star, Search } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { MailMessage } from '../types/mail'
 
 interface MailMessageListProps {
@@ -11,6 +12,7 @@ interface MailMessageListProps {
 }
 
 export function MailMessageList({ messages, isLoading, selectedMessageId, onSelectMessage }: MailMessageListProps) {
+  const { t } = useTranslation()
   const [search, setSearch] = useState('')
   const filtered = search
     ? messages.filter((m) => m.subject.toLowerCase().includes(search.toLowerCase()))
@@ -21,7 +23,7 @@ export function MailMessageList({ messages, isLoading, selectedMessageId, onSele
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1.5, py: 1, borderBottom: 1, borderColor: 'divider' }}>
         <Search size={16} />
         <InputBase
-          placeholder="Search mail"
+          placeholder={t('mail.searchMail')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           fullWidth
@@ -40,7 +42,7 @@ export function MailMessageList({ messages, isLoading, selectedMessageId, onSele
 
         {!isLoading && filtered.length === 0 && (
           <Typography color="text.secondary" sx={{ p: 3, textAlign: 'center' }}>
-            No messages
+            {t('mail.noMessages')}
           </Typography>
         )}
 

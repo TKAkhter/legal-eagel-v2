@@ -5,6 +5,7 @@ import {
 } from '@mui/material'
 import { Search, ChevronDown, LifeBuoy } from 'lucide-react'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { faqEntries } from './faq-data'
 import { useAuthStore } from '@/lib/store/auth-store'
 import { useToast } from '@/components/feedback/ToastProvider'
@@ -16,6 +17,7 @@ async function submitSupportRequest(payload: { subject: string; message: string 
 }
 
 export function HelpCenterPage() {
+  const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
@@ -25,7 +27,7 @@ export function HelpCenterPage() {
   const submitMutation = useMutation({
     mutationFn: submitSupportRequest,
     onSuccess: () => {
-      showToast('Support request sent — we\'ll get back to you soon.', 'success')
+      showToast(t('helpCenter.requestSent'), 'success')
       setSubject('')
       setMessage('')
     },
@@ -49,10 +51,10 @@ export function HelpCenterPage() {
   return (
     <Box>
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 0.5 }}>
-        Help Center
+        {t('helpCenter.title')}
       </Typography>
       <Typography color="text.secondary" sx={{ mb: 3 }}>
-        Search common questions, or reach out to support directly.
+        {t('helpCenter.subtitle')}
       </Typography>
 
       <Grid container spacing={3}>
@@ -71,7 +73,7 @@ export function HelpCenterPage() {
           >
             <Search size={16} />
             <InputBase
-              placeholder="Search the help center…"
+              placeholder={t('helpCenter.searchPlaceholder')}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               fullWidth
@@ -81,7 +83,7 @@ export function HelpCenterPage() {
 
           {categories.size === 0 && (
             <Typography color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>
-              No results for "{query}".
+              {t('helpCenter.noResultsFor', { query })}
             </Typography>
           )}
 
@@ -113,20 +115,20 @@ export function HelpCenterPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
               <LifeBuoy size={18} />
               <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                Contact support
+                {t('helpCenter.contactSupport')}
               </Typography>
             </Box>
             <Stack spacing={2}>
-              <TextField label="From" value={user?.email ?? ''} fullWidth size="small" disabled />
+              <TextField label={t('helpCenter.from')} value={user?.email ?? ''} fullWidth size="small" disabled />
               <TextField
-                label="Subject"
+                label={t('helpCenter.subject')}
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 fullWidth
                 size="small"
               />
               <TextField
-                label="How can we help?"
+                label={t('helpCenter.howCanWeHelp')}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 fullWidth
@@ -140,16 +142,20 @@ export function HelpCenterPage() {
                   disabled={!subject || !message || submitMutation.isPending}
                   onClick={() => submitMutation.mutate({ subject, message })}
                 >
-                  {submitMutation.isPending ? 'Sending…' : 'Send request'}
+                  {submitMutation.isPending ? t('helpCenter.sending') : t('helpCenter.sendRequest')}
                 </Button>
               </Box>
             </Stack>
           </Paper>
 
           <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-            <Chip label="Getting started" size="small" onClick={() => setQuery('')} />
-            <Chip label="Permissions" size="small" onClick={() => setQuery('permission')} />
-            <Chip label="Filters" size="small" onClick={() => setQuery('filter')} />
+            {/* Chip labels are translated; the underlying query stays in
+                English since it must match FAQ content, which is
+                authored English content (see faq-data.ts) — same
+                decision as the earlier i18n audit. */}
+            <Chip label={t('helpCenter.quickFilters.gettingStarted')} size="small" onClick={() => setQuery('')} />
+            <Chip label={t('helpCenter.quickFilters.permissions')} size="small" onClick={() => setQuery('permission')} />
+            <Chip label={t('helpCenter.quickFilters.filters')} size="small" onClick={() => setQuery('filter')} />
           </Box>
         </Grid>
       </Grid>

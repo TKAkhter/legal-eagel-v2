@@ -44,7 +44,7 @@ export function FileManagerPage() {
   const columns: ColumnDef<DriveItem>[] = [
     {
       field: 'name',
-      headerName: 'Name',
+      headerName: t('common.name'),
       sortable: true,
       renderCell: (row) => (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -53,8 +53,8 @@ export function FileManagerPage() {
         </Box>
       ),
     },
-    { field: 'sizeKb', headerName: 'Size', renderCell: (row) => formatSize(row.sizeKb) },
-    { field: 'modifiedAt', headerName: 'Modified', sortable: true, renderCell: (row) => new Date(row.modifiedAt).toLocaleDateString() },
+    { field: 'sizeKb', headerName: t('files.size'), renderCell: (row) => formatSize(row.sizeKb) },
+    { field: 'modifiedAt', headerName: t('files.modified'), sortable: true, renderCell: (row) => new Date(row.modifiedAt).toLocaleDateString() },
   ]
 
   const rowMenuItems: RowMenuItem<DriveItem>[] = [
@@ -63,7 +63,7 @@ export function FileManagerPage() {
       icon: <Pencil size={16} />,
       permission: 'files:edit',
       onClick: async (row) => {
-        const name = window.prompt('New name', row.name)
+        const name = window.prompt(t('files.newNamePrompt'), row.name)
         if (name && name !== row.name) {
           await filesApi.rename(row.id, name)
           invalidateListing()
@@ -76,11 +76,11 @@ export function FileManagerPage() {
       permission: 'files:edit',
       destructive: true,
       onClick: async (row) => {
-        const ok = await confirm({ title: `Delete ${row.name}?`, destructive: true, confirmLabel: t('common.delete') })
+        const ok = await confirm({ title: t('files.deleteConfirmTitle', { name: row.name }), destructive: true, confirmLabel: t('common.delete') })
         if (ok) {
           await filesApi.remove(row.id)
           invalidateListing()
-          showToast('Deleted', 'success')
+          showToast(t('files.deleted'), 'success')
         }
       },
     },
@@ -95,7 +95,7 @@ export function FileManagerPage() {
         <RequirePermission permission="files:edit">
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Button size="small" variant="outlined" startIcon={<FolderPlus size={16} />} onClick={() => setNewFolderOpen(true)}>
-              New folder
+              {t('files.newFolder')}
             </Button>
             <Button size="small" variant="contained" startIcon={<Upload size={16} />} onClick={() => setUploadOpen(true)}>
               {t('common.upload')}
@@ -120,7 +120,7 @@ export function FileManagerPage() {
         queryKey={`files-${currentFolderId}`}
         fetchFn={(params) => filesApi.listItems(currentFolderId, params)}
         columns={columns}
-        filters={{ fields: [{ name: 'name', label: 'Name', type: 'text' }] }}
+        filters={{ fields: [{ name: 'name', label: t('common.name'), type: 'text' }] }}
         rowActions={{ items: rowMenuItems }}
         selection={{
           enabled: true,
@@ -130,11 +130,11 @@ export function FileManagerPage() {
               icon: <Trash2 size={16} />,
               permission: 'files:edit',
               onClick: async (rows) => {
-                const ok = await confirm({ title: `Delete ${rows.length} items?`, destructive: true, confirmLabel: t('common.delete') })
+                const ok = await confirm({ title: t('files.deleteManyConfirmTitle', { count: rows.length }), destructive: true, confirmLabel: t('common.delete') })
                 if (ok) {
                   await Promise.all(rows.map((r) => filesApi.remove(r.id)))
                   invalidateListing()
-                  showToast(`${rows.length} items deleted`, 'success')
+                  showToast(t('files.itemsDeleted', { count: rows.length }), 'success')
                 }
               },
             },
@@ -143,7 +143,7 @@ export function FileManagerPage() {
         toolbar={{ showRefresh: true }}
         onRowClick={(row) => {
           if (row.type === 'folder') setCurrentFolderId(row.id)
-          else showToast(`Previewing ${row.name} (demo)`, 'info')
+          else showToast(t('files.previewingDemo', { name: row.name }), 'info')
         }}
       />
 
@@ -155,19 +155,19 @@ export function FileManagerPage() {
               await filesApi.upload(currentFolderId, files)
               invalidateListing()
               setUploadOpen(false)
-              showToast(`${files.length} file(s) uploaded`, 'success')
+              showToast(t('files.filesUploaded', { count: files.length }), 'success')
             }}
           />
         </DialogContent>
       </Dialog>
 
       <Dialog open={newFolderOpen} onClose={() => setNewFolderOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle>New folder</DialogTitle>
+        <DialogTitle>{t('files.newFolder')}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             fullWidth
-            label="Folder name"
+            label={t('files.folderName')}
             value={newFolderName}
             onChange={(e) => setNewFolderName(e.target.value)}
             sx={{ mt: 1, mb: 2 }}
@@ -183,7 +183,7 @@ export function FileManagerPage() {
               setNewFolderOpen(false)
             }}
           >
-            Create
+            {t('files.create')}
           </Button>
         </DialogContent>
       </Dialog>

@@ -54,6 +54,62 @@
   "commandPalette": {
     "placeholder": "Jump to a page, lead, client, or matter…"
   },
+  "helpCenter": {
+    "title": "Help Center",
+    "subtitle": "Search common questions, or reach out to support directly.",
+    "searchPlaceholder": "Search the help center…",
+    "noResultsFor": "No results for \"{{query}}\".",
+    "contactSupport": "Contact support",
+    "from": "From",
+    "subject": "Subject",
+    "howCanWeHelp": "How can we help?",
+    "sending": "Sending…",
+    "sendRequest": "Send request",
+    "requestSent": "Support request sent — we'll get back to you soon.",
+    "quickFilters": {
+      "gettingStarted": "Getting started",
+      "permissions": "Permissions",
+      "filters": "Filters"
+    }
+  },
+  "auditLogPage": {
+    "title": "Audit Log",
+    "columns": {
+      "when": "When",
+      "actor": "Actor",
+      "action": "Action",
+      "module": "Module",
+      "description": "Description"
+    },
+    "actions": {
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "login": "Login",
+      "permissionChange": "Permission change"
+    }
+  },
+  "mail": {
+    "compose": "Compose",
+    "searchMail": "Search mail",
+    "noMessages": "No messages",
+    "selectToRead": "Select a message to read",
+    "flag": "Flag",
+    "unflagMessage": "Unflag message",
+    "flagMessage": "Flag message",
+    "reply": "Reply",
+    "forward": "Forward",
+    "deleteMessage": "Delete message",
+    "newMessage": "New message",
+    "to": "To",
+    "subject": "Subject",
+    "message": "Message",
+    "writeYourMessage": "Write your message…",
+    "cancel": "Cancel",
+    "send": "Send",
+    "sending": "…",
+    "messageSent": "Message sent"
+  },
   "notifications": {
     "title": "Notifications",
     "markAllRead": "Mark all read",

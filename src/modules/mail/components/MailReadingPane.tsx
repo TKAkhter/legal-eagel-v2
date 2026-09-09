@@ -1,5 +1,6 @@
 import { Box, Typography, IconButton, Avatar, Divider, Chip, Skeleton, Tooltip } from '@mui/material'
 import { Reply, Forward, Trash2, Star, Paperclip } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { MailMessage } from '../types/mail'
 
 interface MailReadingPaneProps {
@@ -10,6 +11,7 @@ interface MailReadingPaneProps {
 }
 
 export function MailReadingPane({ message, isLoading, onReply, onToggleFlag }: MailReadingPaneProps) {
+  const { t } = useTranslation()
   if (isLoading) {
     return (
       <Box sx={{ flexGrow: 1, p: 3 }}>
@@ -23,7 +25,7 @@ export function MailReadingPane({ message, isLoading, onReply, onToggleFlag }: M
   if (!message) {
     return (
       <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography color="text.secondary">Select a message to read</Typography>
+        <Typography color="text.secondary">{t('mail.selectToRead')}</Typography>
       </Box>
     )
   }
@@ -34,23 +36,23 @@ export function MailReadingPane({ message, isLoading, onReply, onToggleFlag }: M
         <Typography variant="h6" sx={{ fontWeight: 700, flexGrow: 1 }}>
           {message.subject}
         </Typography>
-        <Tooltip title="Flag">
-          <IconButton size="small" onClick={() => onToggleFlag(message)} aria-label={message.isFlagged ? 'Unflag message' : 'Flag message'}>
+        <Tooltip title={t('mail.flag')}>
+          <IconButton size="small" onClick={() => onToggleFlag(message)} aria-label={message.isFlagged ? t('mail.unflagMessage') : t('mail.flagMessage')}>
             <Star size={16} fill={message.isFlagged ? 'currentColor' : 'none'} />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Reply">
-          <IconButton size="small" onClick={() => onReply(message)} aria-label="Reply">
+        <Tooltip title={t('mail.reply')}>
+          <IconButton size="small" onClick={() => onReply(message)} aria-label={t('mail.reply')}>
             <Reply size={16} />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Forward">
-          <IconButton size="small" aria-label="Forward">
+        <Tooltip title={t('mail.forward')}>
+          <IconButton size="small" aria-label={t('mail.forward')}>
             <Forward size={16} />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Delete">
-          <IconButton size="small" aria-label="Delete message">
+        <Tooltip title={t('common.delete')}>
+          <IconButton size="small" aria-label={t('mail.deleteMessage')}>
             <Trash2 size={16} />
           </IconButton>
         </Tooltip>

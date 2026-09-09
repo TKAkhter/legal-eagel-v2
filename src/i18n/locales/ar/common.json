@@ -54,6 +54,62 @@
   "commandPalette": {
     "placeholder": "انتقل إلى صفحة أو عميل محتمل أو عميل أو قضية…"
   },
+  "helpCenter": {
+    "title": "مركز المساعدة",
+    "subtitle": "ابحث عن الأسئلة الشائعة أو تواصل مع الدعم مباشرة.",
+    "searchPlaceholder": "ابحث في مركز المساعدة…",
+    "noResultsFor": "لا توجد نتائج لـ \"{{query}}\".",
+    "contactSupport": "التواصل مع الدعم",
+    "from": "من",
+    "subject": "الموضوع",
+    "howCanWeHelp": "كيف يمكننا المساعدة؟",
+    "sending": "جارٍ الإرسال…",
+    "sendRequest": "إرسال الطلب",
+    "requestSent": "تم إرسال طلب الدعم — سنتواصل معك قريبًا.",
+    "quickFilters": {
+      "gettingStarted": "البدء",
+      "permissions": "الصلاحيات",
+      "filters": "عوامل التصفية"
+    }
+  },
+  "auditLogPage": {
+    "title": "سجل التدقيق",
+    "columns": {
+      "when": "الوقت",
+      "actor": "الفاعل",
+      "action": "الإجراء",
+      "module": "الوحدة",
+      "description": "الوصف"
+    },
+    "actions": {
+      "create": "إنشاء",
+      "update": "تحديث",
+      "delete": "حذف",
+      "login": "تسجيل الدخول",
+      "permissionChange": "تغيير الصلاحيات"
+    }
+  },
+  "mail": {
+    "compose": "إنشاء رسالة",
+    "searchMail": "بحث في البريد",
+    "noMessages": "لا توجد رسائل",
+    "selectToRead": "اختر رسالة للقراءة",
+    "flag": "تمييز",
+    "unflagMessage": "إلغاء تمييز الرسالة",
+    "flagMessage": "تمييز الرسالة",
+    "reply": "رد",
+    "forward": "إعادة توجيه",
+    "deleteMessage": "حذف الرسالة",
+    "newMessage": "رسالة جديدة",
+    "to": "إلى",
+    "subject": "الموضوع",
+    "message": "الرسالة",
+    "writeYourMessage": "اكتب رسالتك…",
+    "cancel": "إلغاء",
+    "send": "إرسال",
+    "sending": "…",
+    "messageSent": "تم إرسال الرسالة"
+  },
   "notifications": {
     "title": "الإشعارات",
     "markAllRead": "تمييز الكل كمقروء",

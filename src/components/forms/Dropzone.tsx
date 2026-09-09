@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState, type DragEvent } from 'react'
 import { Box, Typography } from '@mui/material'
 import { UploadCloud } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface DropzoneProps {
   onFilesSelected: (files: File[]) => void
@@ -11,6 +12,7 @@ interface DropzoneProps {
 
 /** Generic drag-and-drop upload area — used by File Manager, and reusable anywhere else a file upload is needed. */
 export function Dropzone({ onFilesSelected, multiple = true, accept, hint }: DropzoneProps) {
+  const { t } = useTranslation()
   const [isDragActive, setIsDragActive] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -46,7 +48,7 @@ export function Dropzone({ onFilesSelected, multiple = true, accept, hint }: Dro
     >
       <UploadCloud size={28} style={{ marginBottom: 8 }} />
       <Typography variant="body2" sx={{ fontWeight: 600 }}>
-        Drag and drop files here, or click to browse
+        {t('common.dropzoneText')}
       </Typography>
       {hint && (
         <Typography variant="caption" color="text.secondary">
