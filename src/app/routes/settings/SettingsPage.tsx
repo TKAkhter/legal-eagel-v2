@@ -10,6 +10,7 @@ import { useUiPreferences, type LayoutMode } from '@/lib/store/ui-preferences-st
 import { AccentColorPicker } from '@/components/layout/AccentColorPicker'
 import { appVersion, buildTime } from '@/lib/version'
 import { useInstallPrompt } from '@/lib/use-install-prompt'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 interface TabPanelProps {
   active: boolean
@@ -29,6 +30,7 @@ export function SettingsPage() {
   const layoutMode = useUiPreferences((s) => s.layoutMode)
   const setLayoutMode = useUiPreferences((s) => s.setLayoutMode)
   const { canInstall, promptInstall } = useInstallPrompt()
+  const { formatDate } = useLocaleDate()
 
   return (
     <Box>
@@ -131,7 +133,7 @@ export function SettingsPage() {
       </Paper>
 
       <Typography variant="caption" color="text.disabled" sx={{ display: 'block', mt: 2 }}>
-        {t('settings.versionInfo', { version: appVersion, date: new Date(buildTime).toLocaleDateString() })}
+        {t('settings.versionInfo', { version: appVersion, date: formatDate(buildTime) })}
       </Typography>
     </Box>
   )

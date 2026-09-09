@@ -11,6 +11,7 @@ import { NotFoundPage } from '@/app/routes/NotFoundPage'
 import { useTrackRecentlyViewed, FavoriteToggle } from '@/components/layout/FavoriteToggle'
 import { CommentThread } from '@/components/layout/CommentThread'
 import type { MatterStatus } from '../types/matter'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 const statusColor: Record<MatterStatus, 'default' | 'info' | 'warning' | 'success'> = {
   open: 'info',
@@ -27,6 +28,7 @@ const demoTimeline = (title: string) => [
 
 export function MatterDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const { formatDate } = useLocaleDate()
   const navigate = useNavigate()
 
   const { data: matter, isLoading, isError } = useQuery({
@@ -82,7 +84,7 @@ export function MatterDetailPage() {
                   label="Status"
                   value={matter && <Chip size="small" label={matter.status.replace('_', ' ')} color={statusColor[matter.status]} />}
                 />
-                <Row label="Opened" value={matter && new Date(matter.openedAt).toLocaleDateString()} />
+                <Row label="Opened" value={matter && formatDate(matter.openedAt)} />
               </Box>
             )}
           </DetailWidget>

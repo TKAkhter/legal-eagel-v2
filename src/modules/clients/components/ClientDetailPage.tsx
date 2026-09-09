@@ -11,6 +11,7 @@ import { NotFoundPage } from '@/app/routes/NotFoundPage'
 import { useTrackRecentlyViewed, FavoriteToggle } from '@/components/layout/FavoriteToggle'
 import { CommentThread } from '@/components/layout/CommentThread'
 import type { ClientTier } from '../types/client'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 const tierColor: Record<ClientTier, 'default' | 'info' | 'warning'> = {
   standard: 'default',
@@ -26,6 +27,7 @@ const demoTimeline = (name: string) => [
 
 export function ClientDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const { formatDate } = useLocaleDate()
   const navigate = useNavigate()
 
   const { data: client, isLoading, isError } = useQuery({
@@ -82,7 +84,7 @@ export function ClientDetailPage() {
                   label="Tier"
                   value={client && <Chip size="small" label={client.tier} color={tierColor[client.tier]} />}
                 />
-                <Row label="Client since" value={client && new Date(client.createdAt).toLocaleDateString()} />
+                <Row label="Client since" value={client && formatDate(client.createdAt)} />
               </Box>
             )}
           </DetailWidget>

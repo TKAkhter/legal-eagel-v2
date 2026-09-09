@@ -42,7 +42,14 @@
     "setFieldForSelected": "Set {{field}} for {{count}} selected",
     "viewDetails": "View details",
     "status": "Status",
-    "applying": "Applying…"
+    "applying": "Applying…",
+    "dropzoneText": "Drag and drop files here, or click to browse",
+    "back": "Back",
+    "next": "Next",
+    "name": "Name",
+    "noActivityYet": "No activity yet.",
+    "title": "Title",
+    "noEntriesForDay": "No entries for this day."
   },
   "auth": {
     "login": "Log in",
@@ -109,6 +116,37 @@
     "send": "Send",
     "sending": "…",
     "messageSent": "Message sent"
+  },
+  "files": {
+    "size": "Size",
+    "modified": "Modified",
+    "newFolder": "New folder",
+    "newNamePrompt": "New name",
+    "folderName": "Folder name",
+    "create": "Create",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteManyConfirmTitle": "Delete {{count}} items?",
+    "deleted": "Deleted",
+    "itemsDeleted": "{{count}} items deleted",
+    "filesUploaded": "{{count}} file(s) uploaded",
+    "previewingDemo": "Previewing {{name}} (demo)"
+  },
+  "csvImport": {
+    "title": "Import from CSV",
+    "csvFilesOnly": "CSV files only",
+    "steps": {
+      "upload": "Upload",
+      "mapColumns": "Map columns",
+      "confirm": "Confirm"
+    },
+    "matchColumns": "Match each field to a column from your file ({{count}} rows found).",
+    "field": "Field",
+    "csvColumn": "CSV column",
+    "dontImport": "Don't import",
+    "readyToImport": "Ready to import {{count}} rows.",
+    "importFailed": "Import failed",
+    "import": "Import",
+    "importing": "Importing…"
   },
   "notifications": {
     "title": "Notifications",

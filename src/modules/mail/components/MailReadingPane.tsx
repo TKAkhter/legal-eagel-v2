@@ -1,6 +1,7 @@
 import { Box, Typography, IconButton, Avatar, Divider, Chip, Skeleton, Tooltip } from '@mui/material'
 import { Reply, Forward, Trash2, Star, Paperclip } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 import type { MailMessage } from '../types/mail'
 
 interface MailReadingPaneProps {
@@ -12,6 +13,7 @@ interface MailReadingPaneProps {
 
 export function MailReadingPane({ message, isLoading, onReply, onToggleFlag }: MailReadingPaneProps) {
   const { t } = useTranslation()
+  const { formatDateTime } = useLocaleDate()
   if (isLoading) {
     return (
       <Box sx={{ flexGrow: 1, p: 3 }}>
@@ -66,7 +68,7 @@ export function MailReadingPane({ message, isLoading, onReply, onToggleFlag }: M
               {message.fromName}
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              {message.fromEmail} · {new Date(message.receivedAt).toLocaleString()}
+              {message.fromEmail} · {formatDateTime(message.receivedAt)}
             </Typography>
           </Box>
         </Box>

@@ -13,6 +13,7 @@ import { NotFoundPage } from '@/app/routes/NotFoundPage'
 import { useTrackRecentlyViewed, FavoriteToggle } from '@/components/layout/FavoriteToggle'
 import { CommentThread } from '@/components/layout/CommentThread'
 import type { InvoiceStatus } from '../types/invoice'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 const statusColor: Record<InvoiceStatus, 'default' | 'info' | 'success' | 'error'> = {
   draft: 'default',
@@ -32,6 +33,7 @@ const demoLineItems = [
 
 export function InvoiceDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const { formatDate } = useLocaleDate()
   const navigate = useNavigate()
 
   const { data: invoice, isLoading, isError } = useQuery({
@@ -87,7 +89,7 @@ export function InvoiceDetailPage() {
                   label="Status"
                   value={invoice && <Chip size="small" label={invoice.status} color={statusColor[invoice.status]} />}
                 />
-                <Row label="Due date" value={invoice && new Date(invoice.dueDate).toLocaleDateString()} />
+                <Row label="Due date" value={invoice && formatDate(invoice.dueDate)} />
               </Box>
             )}
           </DetailWidget>

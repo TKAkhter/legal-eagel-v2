@@ -10,6 +10,7 @@ import { Timeline } from '@/components/layout/Timeline'
 import { NotFoundPage } from '@/app/routes/NotFoundPage'
 import { useTrackRecentlyViewed, FavoriteToggle } from '@/components/layout/FavoriteToggle'
 import { CommentThread } from '@/components/layout/CommentThread'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 import type { UserStatus } from '../types/app-user'
 
 const statusColor: Record<UserStatus, 'success' | 'info' | 'error'> = {
@@ -26,6 +27,7 @@ const demoTimeline = (name: string) => [
 export function UserDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { formatDateTime } = useLocaleDate()
 
   const { data: user, isLoading, isError } = useQuery({
     queryKey: ['users', id],
@@ -78,7 +80,7 @@ export function UserDetailPage() {
                   label="Status"
                   value={user && <Chip size="small" label={user.status} color={statusColor[user.status]} />}
                 />
-                <Row label="Last active" value={user && new Date(user.lastActiveAt).toLocaleString()} />
+                <Row label="Last active" value={user && formatDateTime(user.lastActiveAt)} />
               </Box>
             )}
           </DetailWidget>

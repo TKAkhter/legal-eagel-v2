@@ -10,9 +10,11 @@ import { NotFoundPage } from '@/app/routes/NotFoundPage'
 import { useTrackRecentlyViewed, FavoriteToggle } from '@/components/layout/FavoriteToggle'
 import { CommentThread } from '@/components/layout/CommentThread'
 import { mockUsers } from '@/lib/auth/mock-users'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 export function GroupDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const { formatDate } = useLocaleDate()
   const navigate = useNavigate()
 
   const { data: group, isLoading, isError } = useQuery({
@@ -61,7 +63,7 @@ export function GroupDetailPage() {
             ) : (
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 <Row label="Members" value={group?.memberCount} />
-                <Row label="Created" value={group && new Date(group.createdAt).toLocaleDateString()} />
+                <Row label="Created" value={group && formatDate(group.createdAt)} />
               </Box>
             )}
           </DetailWidget>

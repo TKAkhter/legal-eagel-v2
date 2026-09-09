@@ -9,6 +9,7 @@ import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useConfirm } from '@/components/feedback/ConfirmProvider'
 import { useToast } from '@/components/feedback/ToastProvider'
 import { filesApi } from '../api/files-api'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 import type { DriveItem } from '../types/drive-item'
 import type { ColumnDef, RowMenuItem } from '@/components/data-grid/types'
 
@@ -22,6 +23,7 @@ export function FileManagerPage() {
   const { confirm } = useConfirm()
   const { showToast } = useToast()
   const queryClient = useQueryClient()
+  const { formatDate } = useLocaleDate()
 
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null)
   const [uploadOpen, setUploadOpen] = useState(false)
@@ -54,7 +56,7 @@ export function FileManagerPage() {
       ),
     },
     { field: 'sizeKb', headerName: t('files.size'), renderCell: (row) => formatSize(row.sizeKb) },
-    { field: 'modifiedAt', headerName: t('files.modified'), sortable: true, renderCell: (row) => new Date(row.modifiedAt).toLocaleDateString() },
+    { field: 'modifiedAt', headerName: t('files.modified'), sortable: true, renderCell: (row) => formatDate(row.modifiedAt) },
   ]
 
   const rowMenuItems: RowMenuItem<DriveItem>[] = [

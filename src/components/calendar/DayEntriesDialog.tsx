@@ -1,4 +1,6 @@
 import { Dialog, DialogTitle, DialogContent, Table, TableHead, TableRow, TableCell, TableBody, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 import type { CalendarEntry } from './types'
 
 interface DayEntriesDialogProps {
@@ -10,19 +12,21 @@ interface DayEntriesDialogProps {
 }
 
 export function DayEntriesDialog({ open, onClose, date, entries, onEntryClick }: DayEntriesDialogProps) {
+  const { t } = useTranslation()
+  const { formatDate } = useLocaleDate()
   const metaKeys = Array.from(new Set(entries.flatMap((e) => Object.keys(e.meta ?? {}))))
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{date ? new Date(date).toLocaleDateString(undefined, { dateStyle: 'full' }) : ''}</DialogTitle>
+      <DialogTitle>{date ? formatDate(date, { dateStyle: 'full' }) : ''}</DialogTitle>
       <DialogContent>
         {entries.length === 0 ? (
-          <Typography color="text.secondary">No entries for this day.</Typography>
+          <Typography color="text.secondary">{t('common.noEntriesForDay')}</Typography>
         ) : (
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Title</TableCell>
+                <TableCell>{t('common.title')}</TableCell>
                 {metaKeys.map((key) => (
                   <TableCell key={key}>{key}</TableCell>
                 ))}

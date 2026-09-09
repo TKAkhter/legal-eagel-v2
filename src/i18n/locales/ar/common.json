@@ -42,7 +42,14 @@
     "setFieldForSelected": "تعيين {{field}} لِـ {{count}} عنصر محدد",
     "viewDetails": "عرض التفاصيل",
     "status": "الحالة",
-    "applying": "جارٍ التطبيق…"
+    "applying": "جارٍ التطبيق…",
+    "dropzoneText": "اسحب الملفات وأفلتها هنا، أو انقر للتصفح",
+    "back": "رجوع",
+    "next": "التالي",
+    "name": "الاسم",
+    "noActivityYet": "لا يوجد نشاط بعد.",
+    "title": "العنوان",
+    "noEntriesForDay": "لا توجد إدخالات لهذا اليوم."
   },
   "auth": {
     "login": "تسجيل الدخول",
@@ -109,6 +116,37 @@
     "send": "إرسال",
     "sending": "…",
     "messageSent": "تم إرسال الرسالة"
+  },
+  "files": {
+    "size": "الحجم",
+    "modified": "تاريخ التعديل",
+    "newFolder": "مجلد جديد",
+    "newNamePrompt": "الاسم الجديد",
+    "folderName": "اسم المجلد",
+    "create": "إنشاء",
+    "deleteConfirmTitle": "حذف {{name}}؟",
+    "deleteManyConfirmTitle": "حذف {{count}} عنصر؟",
+    "deleted": "تم الحذف",
+    "itemsDeleted": "تم حذف {{count}} عنصر",
+    "filesUploaded": "تم رفع {{count}} ملف",
+    "previewingDemo": "معاينة {{name}} (تجريبي)"
+  },
+  "csvImport": {
+    "title": "استيراد من CSV",
+    "csvFilesOnly": "ملفات CSV فقط",
+    "steps": {
+      "upload": "رفع",
+      "mapColumns": "مطابقة الأعمدة",
+      "confirm": "تأكيد"
+    },
+    "matchColumns": "طابق كل حقل بعمود من ملفك (تم العثور على {{count}} صف).",
+    "field": "الحقل",
+    "csvColumn": "عمود CSV",
+    "dontImport": "عدم الاستيراد",
+    "readyToImport": "جاهز لاستيراد {{count}} صف.",
+    "importFailed": "فشل الاستيراد",
+    "import": "استيراد",
+    "importing": "جارٍ الاستيراد…"
   },
   "notifications": {
     "title": "الإشعارات",

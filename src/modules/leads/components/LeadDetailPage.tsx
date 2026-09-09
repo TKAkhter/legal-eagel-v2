@@ -11,6 +11,7 @@ import { useBreadcrumbLabel } from '@/components/layout/breadcrumb-context'
 import { useTrackRecentlyViewed, FavoriteToggle } from '@/components/layout/FavoriteToggle'
 import { CommentThread } from '@/components/layout/CommentThread'
 import type { LeadStatus } from '../types/lead'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 const statusColor: Record<LeadStatus, 'default' | 'info' | 'success' | 'error'> = {
   new: 'info',
@@ -29,6 +30,7 @@ const demoTimeline = (leadName: string) => [
 
 export function LeadDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const { formatDate } = useLocaleDate()
   const navigate = useNavigate()
 
   const { data: lead, isLoading, isError } = useQuery({
@@ -84,7 +86,7 @@ export function LeadDetailPage() {
                   label="Status"
                   value={lead && <Chip size="small" label={lead.status} color={statusColor[lead.status]} />}
                 />
-                <Row label="Created" value={lead && new Date(lead.createdAt).toLocaleDateString()} />
+                <Row label="Created" value={lead && formatDate(lead.createdAt)} />
               </Box>
             )}
           </DetailWidget>

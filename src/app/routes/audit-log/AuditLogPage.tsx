@@ -4,6 +4,7 @@ import { auditLogApi } from '@/lib/audit-log/audit-log-api'
 import { AdvancedDataGrid } from '@/components/data-grid/AdvancedDataGrid'
 import type { ColumnDef } from '@/components/data-grid/types'
 import type { AuditLogEntry, AuditAction } from '@/lib/audit-log/types'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 const actionColor: Record<AuditAction, 'success' | 'info' | 'error' | 'default' | 'warning'> = {
   create: 'success',
@@ -15,6 +16,7 @@ const actionColor: Record<AuditAction, 'success' | 'info' | 'error' | 'default' 
 
 export function AuditLogPage() {
   const { t } = useTranslation()
+  const { formatDateTime } = useLocaleDate()
 
   const actionOptions = [
     { value: 'create', label: t('auditLogPage.actions.create') },
@@ -29,7 +31,7 @@ export function AuditLogPage() {
       field: 'createdAt',
       headerName: t('auditLogPage.columns.when'),
       sortable: true,
-      renderCell: (row) => new Date(row.createdAt).toLocaleString(),
+      renderCell: (row) => formatDateTime(row.createdAt),
     },
     { field: 'actorName', headerName: t('auditLogPage.columns.actor'), sortable: true },
     {

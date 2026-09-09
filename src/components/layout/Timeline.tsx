@@ -1,4 +1,6 @@
 import { Box, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { useLocaleDate } from '@/lib/i18n/use-locale-date'
 
 export interface TimelineEntry {
   id: string
@@ -8,10 +10,13 @@ export interface TimelineEntry {
 }
 
 export function Timeline({ entries }: { entries: TimelineEntry[] }) {
+  const { t } = useTranslation()
+  const { formatDateTime } = useLocaleDate()
+
   if (entries.length === 0) {
     return (
       <Typography color="text.secondary" variant="body2">
-        No activity yet.
+        {t('common.noActivityYet')}
       </Typography>
     )
   }
@@ -36,7 +41,7 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
           />
           <Typography variant="body2">{entry.label}</Typography>
           <Typography variant="caption" color="text.secondary">
-            {entry.actor} · {new Date(entry.timestamp).toLocaleString()}
+            {entry.actor} · {formatDateTime(entry.timestamp)}
           </Typography>
         </Box>
       ))}
