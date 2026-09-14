@@ -10,6 +10,7 @@ import { BulkStatusUpdateDialog } from '@/components/data-grid/BulkStatusUpdateD
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useToast } from '@/components/feedback/ToastProvider'
 import { useUndoableDelete } from '@/lib/undo/use-undoable-delete'
+import { useOptimisticUpdate } from '@/lib/optimistic/use-optimistic-update'
 import { leadsApi } from '../api/leads-api'
 import type { Lead, LeadStatus } from '../types/lead'
 import type { ColumnDef, RowMenuItem } from '@/components/data-grid/types'
@@ -45,6 +46,10 @@ export function LeadsListPage() {
     queryKeyPrefix: 'leads',
     removeFn: leadsApi.remove,
     getLabel: (lead) => lead.name,
+  })
+  const { updateManyOptimistic } = useOptimisticUpdate<Lead>({
+    queryKeyPrefix: 'leads',
+    updateFn: leadsApi.update,
   })
 
   const columns: ColumnDef<Lead>[] = [
@@ -154,10 +159,10 @@ export function LeadsListPage() {
         onClose={() => setBulkStatusRows(null)}
         options={statusOptions}
         selectedCount={bulkStatusRows?.length ?? 0}
-        onApply={async (newStatus) => {
+        onApply={(newStatus) => {
           if (!bulkStatusRows) return
-          await Promise.all(bulkStatusRows.map((row) => leadsApi.update(row.id, { status: newStatus as LeadStatus })))
-          queryClient.invalidateQueries({ queryKey: ['leads'] })
+          const ids = bulkStatusRows.map((row) => row.id)
+          updateManyOptimistic(ids, { status: newStatus as LeadStatus })
           showToast(`${bulkStatusRows.length} leads updated`, 'success')
         }}
       />

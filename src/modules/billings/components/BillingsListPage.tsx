@@ -8,6 +8,7 @@ import { AdvancedDataGrid } from '@/components/data-grid/AdvancedDataGrid'
 import { BulkStatusUpdateDialog } from '@/components/data-grid/BulkStatusUpdateDialog'
 import { useToast } from '@/components/feedback/ToastProvider'
 import { useUndoableDelete } from '@/lib/undo/use-undoable-delete'
+import { useOptimisticUpdate } from '@/lib/optimistic/use-optimistic-update'
 import { invoicesApi } from '../api/invoices-api'
 import type { Invoice, InvoiceStatus } from '../types/invoice'
 import type { ColumnDef, RowMenuItem } from '@/components/data-grid/types'
@@ -38,6 +39,10 @@ export function BillingsListPage() {
     queryKeyPrefix: 'billings',
     removeFn: invoicesApi.remove,
     getLabel: (invoice) => invoice.invoiceNumber,
+  })
+  const { updateManyOptimistic } = useOptimisticUpdate<Invoice>({
+    queryKeyPrefix: 'billings',
+    updateFn: invoicesApi.update,
   })
 
   const columns: ColumnDef<Invoice>[] = [
@@ -141,10 +146,10 @@ export function BillingsListPage() {
         onClose={() => setBulkStatusRows(null)}
         options={statusOptions}
         selectedCount={bulkStatusRows?.length ?? 0}
-        onApply={async (newStatus) => {
+        onApply={(newStatus) => {
           if (!bulkStatusRows) return
-          await Promise.all(bulkStatusRows.map((row) => invoicesApi.update(row.id, { status: newStatus as InvoiceStatus })))
-          queryClient.invalidateQueries({ queryKey: ['billings'] })
+          const ids = bulkStatusRows.map((row) => row.id)
+          updateManyOptimistic(ids, { status: newStatus as InvoiceStatus })
           showToast(`${bulkStatusRows.length} invoices updated`, 'success')
         }}
       />

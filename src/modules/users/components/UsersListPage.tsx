@@ -3,11 +3,11 @@ import { UserPlus, ShieldOff, ShieldCheck, Tag } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { useQueryClient } from '@tanstack/react-query'
 import { AdvancedDataGrid } from '@/components/data-grid/AdvancedDataGrid'
 import { BulkStatusUpdateDialog } from '@/components/data-grid/BulkStatusUpdateDialog'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useToast } from '@/components/feedback/ToastProvider'
+import { useOptimisticUpdate } from '@/lib/optimistic/use-optimistic-update'
 import { usersApi } from '../api/users-api'
 import type { AppUser, UserStatus } from '../types/app-user'
 import type { ColumnDef, RowMenuItem } from '@/components/data-grid/types'
@@ -28,8 +28,11 @@ export function UsersListPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { showToast } = useToast()
-  const queryClient = useQueryClient()
   const [bulkStatusRows, setBulkStatusRows] = useState<AppUser[] | null>(null)
+  const { updateOptimistic, updateManyOptimistic } = useOptimisticUpdate<AppUser>({
+    queryKeyPrefix: 'users',
+    updateFn: usersApi.update,
+  })
 
   const columns: ColumnDef<AppUser>[] = [
     { field: 'name', headerName: 'Name', sortable: true },
@@ -49,8 +52,8 @@ export function UsersListPage() {
       icon: <ShieldOff size={16} />,
       permission: 'users:edit',
       destructive: true,
-      onClick: async (row) => {
-        await usersApi.update(row.id, { status: 'suspended' })
+      onClick: (row) => {
+        updateOptimistic(row.id, { status: 'suspended' })
         showToast(`${row.name} suspended`, 'success')
       },
     },
@@ -58,8 +61,8 @@ export function UsersListPage() {
       label: 'Reactivate',
       icon: <ShieldCheck size={16} />,
       permission: 'users:edit',
-      onClick: async (row) => {
-        await usersApi.update(row.id, { status: 'active' })
+      onClick: (row) => {
+        updateOptimistic(row.id, { status: 'active' })
         showToast(`${row.name} reactivated`, 'success')
       },
     },
@@ -109,10 +112,10 @@ export function UsersListPage() {
         onClose={() => setBulkStatusRows(null)}
         options={statusOptions}
         selectedCount={bulkStatusRows?.length ?? 0}
-        onApply={async (newStatus) => {
+        onApply={(newStatus) => {
           if (!bulkStatusRows) return
-          await Promise.all(bulkStatusRows.map((row) => usersApi.update(row.id, { status: newStatus as UserStatus })))
-          queryClient.invalidateQueries({ queryKey: ['users'] })
+          const ids = bulkStatusRows.map((row) => row.id)
+          updateManyOptimistic(ids, { status: newStatus as UserStatus })
           showToast(`${bulkStatusRows.length} users updated`, 'success')
         }}
       />
