@@ -1,7 +1,7 @@
 {
   "name": "admin-boilerplate",
   "private": true,
-  "version": "22.0.0",
+  "version": "22.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -64,7 +64,7 @@
     "@types/styled-components": "^5.1.36",
     "@vitejs/plugin-react": "^6.0.4",
     "autoprefixer": "^10.5.4",
-    "jsdom": "^30.0.1",
+    "jsdom": "^27.4.0",
     "oxlint": "^1.75.0",
     "postcss": "^8.5.25",
     "tailwindcss": "^4.3.3",
