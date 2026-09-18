@@ -5,7 +5,7 @@ import {
   Box, Typography, Chip, Skeleton, Grid, IconButton, Tooltip,
   Table, TableHead, TableRow, TableCell, TableBody,
 } from '@mui/material'
-import { ArrowLeft, Printer } from 'lucide-react'
+import { ArrowLeft, Printer, FileDown } from 'lucide-react'
 import { invoicesApi } from '../api/invoices-api'
 import { useBreadcrumbLabel } from '@/components/layout/breadcrumb-context'
 import { DetailWidget } from '@/components/layout/DetailWidget'
@@ -55,6 +55,25 @@ export function InvoiceDetailPage() {
     return <NotFoundPage message="We couldn't find this invoice." />
   }
 
+  const handleDownloadPdf = async () => {
+    if (!invoice) return
+    const { exportToPdf } = await import('@/lib/export/pdf-export')
+    exportToPdf({
+      title: invoice.invoiceNumber,
+      details: [
+        { label: 'Client', value: invoice.clientName },
+        { label: 'Amount', value: currencyFormatter.format(invoice.amount) },
+        { label: 'Status', value: invoice.status },
+        { label: 'Due date', value: formatDate(invoice.dueDate) },
+      ],
+      lineItems: {
+        columns: [{ header: 'Description' }, { header: 'Amount', align: 'right' }],
+        rows: demoLineItems.map((item) => [item.description, currencyFormatter.format(item.amount)]),
+      },
+      filename: invoice.invoiceNumber,
+    })
+  }
+
   return (
     <Box className="print-page">
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
@@ -69,6 +88,11 @@ export function InvoiceDetailPage() {
           </Typography>
         )}
         {activityRecord && <FavoriteToggle record={activityRecord} />}
+        <Tooltip title="Download PDF">
+          <IconButton size="small" onClick={handleDownloadPdf} className="no-print" aria-label="Download PDF" disabled={!invoice}>
+            <FileDown size={18} />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Print">
           <IconButton size="small" onClick={() => window.print()} className="no-print" aria-label="Print">
             <Printer size={18} />
